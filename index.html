@@ -8,35 +8,135 @@
     <link rel="stylesheet" href="css/styles.css">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
 </head>
-<body>
-    <header>
+<body>    <header>
         <nav class="navbar">
             <div class="logo">
+                <i class="fas fa-waves"></i>
                 <h1>ShoreSquad</h1>
             </div>
             <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#map">Find Cleanups</a></li>
-                <li><a href="#weather">Weather</a></li>
-                <li><a href="#community">Community</a></li>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Events</a></li>
+                <li><a href="#">Map</a></li>
+                <li><a href="#">My Crew</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section id="hero">
+        <section class="hero-section">
             <div class="hero-content">
-                <h2>Make Waves of Change</h2>
-                <p>Join the movement to keep our beaches clean</p>
-                <button class="cta-button">Join a Cleanup</button>
+                <h1 class="hero-title">ShoreSquad</h1>
+                <p class="hero-subtitle">Rally your crew, track weather, and hit the next beach cleanup!</p>
+                <button class="cta-button">Get Started</button>
             </div>
         </section>
 
-        <section id="map" class="map-section">
-            <h2>Find Nearby Cleanups</h2>
+        <div class="stats-container">
+            <div class="stat-card">
+                <i class="fas fa-trash-alt"></i>
+                <h2>2500</h2>
+                <p>Pounds Collected</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h2>45</h2>
+                <p>Beaches Cleaned</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <h2>350</h2>
+                <p>Squad Members</p>
+            </div>
+        </div>
+
+        <section class="upcoming-events">
+            <h2>Upcoming Cleanups</h2>
+            <div class="events-grid">
+                <div class="event-card">
+                    <div class="event-date">Jun 1</div>
+                    <div class="event-content">
+                        <h3>Santa Monica Beach Cleanup</h3>
+                        <p class="location"><i class="fas fa-map-marker-alt"></i> Santa Monica Pier</p>
+                        <p class="time"><i class="far fa-clock"></i> 09:00 AM</p>
+                        <div class="squad-members">
+                            <div class="member-avatars">
+                                <span class="avatar">A</span>
+                                <span class="avatar">B</span>
+                                <span class="avatar">C</span>
+                                <span class="avatar">D</span>
+                                <span class="avatar-more">+8</span>
+                            </div>
+                            <p>12 squad members</p>
+                        </div>
+                        <button class="join-squad-btn">Join Squad</button>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-date">Jun 3</div>
+                    <div class="event-content">
+                        <h3>Venice Beach Squad Action</h3>
+                        <p class="location"><i class="fas fa-map-marker-alt"></i> Venice Beach Boardwalk</p>
+                        <p class="time"><i class="far fa-clock"></i> 08:30 AM</p>
+                        <div class="squad-members">
+                            <div class="member-avatars">
+                                <span class="avatar">E</span>
+                                <span class="avatar">F</span>
+                                <span class="avatar">G</span>
+                                <span class="avatar-more">+5</span>
+                            </div>
+                            <p>8 squad members</p>
+                        </div>
+                        <button class="join-squad-btn">Join Squad</button>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-date">Jun 7</div>
+                    <div class="event-content">
+                        <h3>Malibu Coast Conservation</h3>
+                        <p class="location"><i class="fas fa-map-marker-alt"></i> Malibu State Beach</p>
+                        <p class="time"><i class="far fa-clock"></i> 07:00 AM</p>
+                        <div class="squad-members">
+                            <div class="member-avatars">
+                                <span class="avatar">H</span>
+                                <span class="avatar">I</span>
+                                <span class="avatar">J</span>
+                                <span class="avatar-more">+12</span>
+                            </div>
+                            <p>15 squad members</p>
+                        </div>
+                        <button class="join-squad-btn">Join Squad</button>
+                    </div>
+                </div>
+            </div>
+        </section>        <section id="map" class="map-section">
+            <h2>Next Cleanup Location: Pasir Ris</h2>
             <div id="cleanup-map">
-                <!-- Map will be inserted here via JavaScript -->
+                <iframe
+                    width="100%"
+                    height="450"
+                    style="border:0"
+                    loading="lazy"
+                    allowfullscreen
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=1.381497,103.955574&zoom=15&center=1.381497,103.955574">
+                </iframe>
+            </div>
+            <div class="map-info">
+                <p><i class="fas fa-map-marker-alt"></i> Street View Asia, Pasir Ris</p>
+                <p><i class="fas fa-calendar"></i> Next Cleanup: June 15, 2025</p>
+                <p><i class="fas fa-clock"></i> Start Time: 8:00 AM</p>
             </div>
         </section>
 
