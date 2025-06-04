@@ -3,10 +3,20 @@ import { initWeather } from './weather.js';
 
 // Wait for DOM to load
 document.addEventListener('DOMContentLoaded', () => {
-    initializeMap();
-    initWeather();
-    initializeScrollAnimation();
-    setupAnimationObservers();
+    showLoading();
+    
+    Promise.all([
+        initializeMap(),
+        initWeather(),
+        setupAnimationObservers()
+    ]).then(() => {
+        hideLoading();
+        showToast('Welcome to ShoreSquad! 🌊');
+    }).catch(error => {
+        console.error('Error initializing app:', error);
+        hideLoading();
+        showToast('Some features may not be available.', 'error');
+    });
 
     // Animate hero section on load
     const heroContent = document.querySelector('.hero-content');
@@ -65,24 +75,46 @@ function initializeScrollAnimation() {
     });
 }
 
+// Show/hide loading spinner
+function showLoading() {
+    document.getElementById('loading-spinner').style.display = 'flex';
+}
+
+function hideLoading() {
+    document.getElementById('loading-spinner').style.display = 'none';
+}
+
+// Show toast notification
+function showToast(message, type = 'success') {
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        <p>${message}</p>
+    `;
+    document.body.appendChild(toast);
+
+    // Remove toast after 3 seconds
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
 // Set up intersection observers for animations
 function setupAnimationObservers() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                entry.target.classList.add('fade-in');
+                observer.unobserve(entry.target);
             }
         });
     }, { threshold: 0.1 });
 
-    // Observe stat cards
-    document.querySelectorAll('.stat-card').forEach(card => {
-        observer.observe(card);
-    });
-
-    // Observe event cards
-    document.querySelectorAll('.event-card').forEach(card => {
-        observer.observe(card);
+    // Observe elements that should animate
+    document.querySelectorAll('.stat-card, .event-card, .feed-item').forEach(el => {
+        observer.observe(el);
     });
 }
 
@@ -133,6 +165,8 @@ function joinCleanup(cleanupTitle) {
         button.disabled = true;
         button.style.backgroundColor = 'var(--color-accent)';
     }
+
+    showToast(`Successfully joined ${cleanupTitle}! Check your email for details.`);
 }
 
 // Utility Functions
